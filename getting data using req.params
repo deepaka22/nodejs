@@ -1,1 +1,48 @@
-g
+const express = require("express");
+
+const app = express();
+
+app.listen(9000, () => {
+  console.log("sever started in local host 9000");
+});
+
+const carData = [
+  {
+    name: "city",
+    counrty: "JAPAN",
+    company: "Honda",
+    fuel: "Diesel",
+    type: "manual",
+  },
+  {
+    name: "Altroz",
+    counrty: "INDIA",
+    company: "Tata",
+    fuel: "petrol",
+    type: "manual",
+  },
+  {
+    name: "Eco_sport",
+    counrty: "USA",
+    company: "FORD",
+    fuel: "petrol",
+    type: "Automatic",
+  },
+  {
+    name: "indigo",
+    counrty: "INDIA",
+    company: "TATA",
+    fuel: "Diesel",
+    type: "manual",
+  },
+];
+
+app.get("/cars/:name", (req, resp) => {
+  const { name } = req.params;
+
+  console.log(req.params);
+
+  const newdata = carData.find((ele) => ele.name === name);
+
+  resp.json(newdata);
+});
