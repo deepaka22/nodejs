@@ -1,0 +1,64 @@
+const express = require("express");
+
+const app = express();
+
+app.listen(9000, () => {
+  console.log("sever started in local host 9000");
+});
+
+const carData = [
+  {
+    name: "city",
+    counrty: "JAPAN",
+    company: "Honda",
+    fuel: "Diesel",
+    type: "manual",
+  },
+  {
+    name: "Altroz",
+    counrty: "INDIA",
+    company: "Tata",
+    fuel: "petrol",
+    type: "manual",
+  },
+  {
+    name: "Eco_sport",
+    counrty: "USA",
+    company: "FORD",
+    fuel: "petrol",
+    type: "Automatic",
+  },
+  {
+    name: "indigo",
+    counrty: "INDIA",
+    company: "TATA",
+    fuel: "Diesel",
+    type: "manual",
+  },
+];
+
+app.get("/cars/all", (req, resp) => {
+  // console.log(req.query);
+  const { name, counrty, company, fuel, type } = req.query;
+
+  let returnData = carData;
+
+  if (req.query) {
+    if (name) {
+      returnData = returnData.filter((ele) => ele.name === name);
+    }
+    if (counrty) {
+      returnData = returnData.filter((ele) => ele.counrty === counrty);
+    }
+    if (company) {
+      returnData = returnData.filter((ele) => ele.company === company);
+    }
+    if (fuel) {
+      returnData = returnData.filter((ele) => ele.fuel === fuel);
+    }
+    if (type) {
+      returnData = returnData.filter((ele) => ele.type === type);
+    }
+  }
+  resp.json({ data: returnData });
+});
